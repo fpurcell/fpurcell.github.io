@@ -6,30 +6,31 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <title>Frank Purcell</title>
+    <title>Mr. FlickrPhotoSwipe</title>
 
     <!-- important note: this lib uses a very old version of photoswipe -->
-    <link  href="lib/css/photoswipe-3.0.4.css" type="text/css" rel="stylesheet" />
+    <!-- https://docs.omniref.com/github/dimsemenov/PhotoSwipe/3.0.3 -->
     <script src="lib/js/klass.min.js" type="text/javascript" ></script>
     <script src="lib/js/photoswipe-3.0.4.min.js"></script>
+    <link  href="lib/css/photoswipe-3.0.4.css" type="text/css" rel="stylesheet" />
 
     <link  href="css/flickr-photo-swipe.css" type="text/css" rel="stylesheet" />
     <script src="js/flickr-photo-swipe.js"></script>
     <script type="text/javascript">
-        //var f = new FlickrPhotoSwipe("f795862b714e60d59e6b4585f902e563", "72157602886285966", "fpurcell");
-        var f = new FlickrPhotoSwipe("f795862b714e60d59e6b4585f902e563", "72157670145193075", "fpurcell");
+        // EDIT ME HERE...and please change to your own API key
+        var f = new FlickrPhotoSwipe("f795862b714e60d59e6b4585f902e563", "72157670059311695", "lightbox111");
     </script>
 </head>    
 <body>
     <div id="photoheader">
-        <a href="/">Frank Purcell</a>
+        <a href="/">Mr. FlickrPhotoSwipe</a>
         <script>
             var lb = f.flickrLinkback("See more photos on my Flickr page", " ");
             document.writeln(lb); 
         </script>
         <address>
-        <div class='little'>twitter: <a href="//twitter.com/fpurcell">@fpurcell</a></div>
-        <div class='little'><a href="tel:503-702-4404">cell: 503.702.4404</a></div>
+        <div class='little'>(fake) phone #: <a href='tel:555-555-1212'>555.555.1212</a></div>
+        <div class='little'>github: <a href='//github.com/fpurcell/FlickrPhotoSwipe' target='#'>FlickrPhotoSwipe</a></div>
         </address>
     </div>
     <div style="position:relative; margin:0 auto;">

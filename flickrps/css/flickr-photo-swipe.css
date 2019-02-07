@@ -1,0 +1,65 @@
+/**
+ * 95% of the css was written by Ajay at http://snarglr.com/about/
+ * @see http://snarglr.com/s/2012/05/from-flickr-to-photoswipe/
+ * @see http://stackoverflow.com/questions/8201168/photoswipe-get-images-from-flickr-or-other-feed 
+ * @see https://twitter.com/PhotoSwipe
+ */
+
+body { padding: 0; margin: 0; background: #000; font-family: "franklin-gothic-urw", Arial,Verdana, sans-serif; color: #444340; }
+h1 { font-size: 1.3em; padding: 15px 10px; margin: 0; }
+h2 { font-size: 1.1em; padding: 10px; margin: 0; }
+img { border: none; }
+a { color: #444340; }
+
+#Header { background: #EEBF02; height: 61px; padding: 0; border-bottom: 1px solid #3c3c3c;  }
+#Header img { display: block; margin: 0 auto 0; }
+
+#MainContent { background: #000; padding-bottom: 30px; height:100%; overflow-y: scroll; -webkit-overflow-scrolling: touch;}
+
+#Footer { padding: 10px; border-top: none; } 
+
+#SocialLinks { padding: 10px 0 0 0; }
+#SocialLinks:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+#SocialLinks a { display: block; float: left; padding-right: 15px; }
+
+.gallery { list-style: none; padding: 0; margin: 0;  }
+.gallery:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+.gallery li { float: left; width: 80px; height:80px; }
+.gallery li a { display: block; margin: 5px; border: 1px solid #3c3c3c; }
+.gallery li img { display: block; width: 100%; height: auto; }
+
+/* For inline examples only */
+#PhotoSwipeTarget { width: 100%; height: 200px; }
+
+#Indicators { text-align: center; margin-top: 20px; }
+#Indicators span { display: inline-block; height: 10px; width: 10px; margin: 0 10px 0 0; padding: 0; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; border-radius:5px; background: #c5c5c5; overflow:hidden; }
+#Indicators span.current{ background: #EEBF02; }
+
+/*Retina iPad*/
+@media only screen and (min-device-width: 1536px) and (max-device-width: 2048px) and (-webkit-device-pixel-ratio: 2) {
+    .gallery li { float: left; width: 85px; height:85px; }
+}
+
+/*iPad*/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+.gallery li { float: left; width: 85px; height:85px; }
+
+
+/* iPhone, 3G, 3GS  */
+@media only screen and (-webkit-device-pixel-ratio: 1.0),
+       only screen and (moz-device-pixel-ratio: 1.0),
+       only screen and (min-resolution: 163dpi)
+       only screen and (max-resolution: 163dpi)
+{
+    .gallery li { float: left; width: 78px; height:78px; }
+    #MainContent{margin-left:5px;}
+}
+
+/* Standard displays */
+@media only screen and (-webkit-device-pixel-ratio: 1.0),
+       only screen and (moz-device-pixel-ratio: 1.0),
+       only screen and (max-resolution: 136dpi)
+{
+    .gallery li { float: left; width: 120px; height:120px; }
+    #MainContent{margin-left:10px;}
+}

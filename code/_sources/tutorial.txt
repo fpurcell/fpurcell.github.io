@@ -1,0 +1,60 @@
+GeoAlchemy Example
+===================
+
+This example `<neighborhood.p.y>`_ shows how to get GeoAlchemy <http://geoalchemy.org> to 
+recognize an existing PostGIS table, read the table's contents, and then call a couple of
+PostGIS functions on that data, all from python.
+
+
+Setting up PostGIS
+------------------
+
+First we assume a working PostGIS installation (see <http://postgis.refractions.net/docs/ch02.html#PGInstall>).
+The code expects to connect to a database called `postgres`, with a user called `postgres` (without a password).
+
+.. code-block:: python
+
+    Using another database name, user and/or passoword? 
+    That's cool...just change the following line in neighborhood.py:
+
+    database = "postgresql://postgres@localhost:5432/postgres"
+
+
+Example data
+-----------------------
+
+The example is built on a table called 'neighborhood', which is the result of a 'shp2pgsql' on a file we'll download from Zillow.  First choose a neighborhood .shp file from here: http://www.zillow.com/howto/api/neighborhood-boundaries.htm.  Then load that into your database.
+
+.. code-block:: python
+
+   wget http://www.zillow.com/static/shp/ZillowNeighborhoods-MA.zip
+   unzip ZillowNeighborhoods-MA.zip 
+   shp2pgsql ZillowNeighborhoods-MA.shp neighborhood > neighborhood.sql
+   psql -U postgres -f neighborhood.sql 
+
+
+Run `<neighborhood.p.y>`_
+-----------------------
+
+Fairly simple here, just type `python neighborhood.py`, and you're running the example, and should see something like the following (i.e., since I have more than MA data loaded, your result will differ a bit...thinking `Sixteen Acres` will be the result of MA only data)
+
+.. code-block:: python
+
+    python neighborhood.py
+    ....
+    DB Columns ['neighborhood.gid', 'neighborhood.state', 'neighborhood.county', 'neighborhood.city', 'neighborhood.name', 'neighborhood.regionid', 'neighborhood.the_geom']
+    GeoColumn Type ST_MultiPolygon
+    Salem centriod is at: 44.9177349523 , -123.014934057 and this big 0.0116839510301	
+
+
+Summary
+-----------------------
+
+Please take `<neighborhood.p.y>`_ apart, to see how it works.  I'm hoping that this helps (more than hurts) any novice python / SqlAlchemy / GeoAlchemy folks out there.  Creating this has helped me start to come up to speed with these technologies.  In the process of learning, I never found a stand-alone example to read existing PostGIS tables, so I'm hoping this fills that void.
+
+Good luck...
+`http://frankpurcell.com <http://frankpurcell.com/code>`_
+
+`<neighborhood.py>`_
+-----------------------
+.. literalinclude:: neighborhood.py

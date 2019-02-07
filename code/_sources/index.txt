@@ -1,0 +1,30 @@
+Code
+===================
+
+A few of the projects that I'm working on, and some sample code created along the way.  It's cool to get paid for working on some of this stuff ... then again, I get a fixed salery, and it's 4:20am on a Sunday.  But really, it's much cooler to work at a place where we opensource the things we create, and we can share what we work on.
+
+
+`Open Trip Planner - OTP <http://opentripplanner.org>`_
+------------------------------------------------------
+
+Building a multi-modal trip planner.  Most of my contribution to-date has been on the web ui side, where I ported the code for the TriMet map (http://ride.trimet.org) over to OTP.  Starting to get my fingers dirty in the routing code...but actually finding just generating a graph a time-intensive activity (http://maps5.trimet.org/otp).
+
+
+`GeoSearch <http://gs.gtfsdb.com>`_
+------------------------------------------------------
+
+A project born out of the need for a geocoder on OTP, I'm writing a poor-man's geocoder.  GeoSearch will use Apache's `SOLR <http://lucene.apache.org/solr>`_ as a search service atop geographic point data.  I really like SOLR, and think it does a reasonable job as a `geocoder` (as long as you have the street and/or taxlot data to feed in -- where it doesn't work is when you have new addresses that aren't in your taxlot data...a geosearch can't interpolate address ranges on a streetbase).  See http://ride.trimet.org?tool=search to see the SOLR (built with GeoSearch) in action.
+
+In creating the GeoSearch, I created a `tutorial <tutorial>`_ on how to use GeoAlchemy to talk to existing PostGIS tables.  Hopefully fills a hole I found when looking for a standalone example that read from an existing table.
+
+
+`gtfsdb <http://gtfsdb.com>`_
+------------------------------------
+
+Populate a database with GTFS data. A neat little project, still in its infancy...but a lot of potential.
+
+
+`TimeTablePublisher -- TTPUB <http://timetablepublisher.org>`_
+------------------------------------
+
+A system to create and configure transit schedule data into formats for web and print time tables. Kinda great (yeah, me) to see other transit agencies start to use this app.  (I also cringe when I see the app, because its ui is dated, and could use more attention than I am able to give it at the moment -- but it's still a good tool, that can save a lot of time and definately fills a void).

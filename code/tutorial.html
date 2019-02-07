@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GeoAlchemy Example &mdash; Frank Purcell v documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/_static/jsMath/jsMath.js"></script>
+    <link rel="top" title="Frank Purcell v documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">Frank Purcell v documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GeoAlchemy Example</a><ul>
+<li><a class="reference internal" href="#setting-up-postgis">Setting up PostGIS</a></li>
+<li><a class="reference internal" href="#example-data">Example data</a></li>
+<li><a class="reference internal" href="#run-neighborhood-p-y">Run neighborhood.p.y</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#id3">neighborhood.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="geoalchemy-example">
+<h1>GeoAlchemy Example<a class="headerlink" href="#geoalchemy-example" title="Permalink to this headline">¶</a></h1>
+<p>This example <a class="reference external" href="neighborhood.p.y">neighborhood.p.y</a> shows how to get GeoAlchemy &lt;<a class="reference external" href="http://geoalchemy.org">http://geoalchemy.org</a>&gt; to
+recognize an existing PostGIS table, read the table&#8217;s contents, and then call a couple of
+PostGIS functions on that data, all from python.</p>
+<div class="section" id="setting-up-postgis">
+<h2>Setting up PostGIS<a class="headerlink" href="#setting-up-postgis" title="Permalink to this headline">¶</a></h2>
+<p>First we assume a working PostGIS installation (see &lt;<a class="reference external" href="http://postgis.refractions.net/docs/ch02.html#PGInstall">http://postgis.refractions.net/docs/ch02.html#PGInstall</a>&gt;).
+The code expects to connect to a database called <cite>postgres</cite>, with a user called <cite>postgres</cite> (without a password).</p>
+<div class="highlight-python"><pre>Using another database name, user and/or passoword?
+That's cool...just change the following line in neighborhood.py:
+
+database = "postgresql://postgres@localhost:5432/postgres"</pre>
+</div>
+</div>
+<div class="section" id="example-data">
+<h2>Example data<a class="headerlink" href="#example-data" title="Permalink to this headline">¶</a></h2>
+<p>The example is built on a table called &#8216;neighborhood&#8217;, which is the result of a &#8216;shp2pgsql&#8217; on a file we&#8217;ll download from Zillow.  First choose a neighborhood .shp file from here: <a class="reference external" href="http://www.zillow.com/howto/api/neighborhood-boundaries.htm">http://www.zillow.com/howto/api/neighborhood-boundaries.htm</a>.  Then load that into your database.</p>
+<div class="highlight-python"><pre>wget http://www.zillow.com/static/shp/ZillowNeighborhoods-MA.zip
+unzip ZillowNeighborhoods-MA.zip
+shp2pgsql ZillowNeighborhoods-MA.shp neighborhood &gt; neighborhood.sql
+psql -U postgres -f neighborhood.sql</pre>
+</div>
+</div>
+<div class="section" id="run-neighborhood-p-y">
+<h2>Run <a class="reference external" href="neighborhood.p.y">neighborhood.p.y</a><a class="headerlink" href="#run-neighborhood-p-y" title="Permalink to this headline">¶</a></h2>
+<p>Fairly simple here, just type <cite>python neighborhood.py</cite>, and you&#8217;re running the example, and should see something like the following (i.e., since I have more than MA data loaded, your result will differ a bit...thinking <cite>Sixteen Acres</cite> will be the result of MA only data)</p>
+<div class="highlight-python"><pre>python neighborhood.py
+....
+DB Columns ['neighborhood.gid', 'neighborhood.state', 'neighborhood.county', 'neighborhood.city', 'neighborhood.name', 'neighborhood.regionid', 'neighborhood.the_geom']
+GeoColumn Type ST_MultiPolygon
+Salem centriod is at: 44.9177349523 , -123.014934057 and this big 0.0116839510301</pre>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>Please take <a class="reference external" href="neighborhood.p.y">neighborhood.p.y</a> apart, to see how it works.  I&#8217;m hoping that this helps (more than hurts) any novice python / SqlAlchemy / GeoAlchemy folks out there.  Creating this has helped me start to come up to speed with these technologies.  In the process of learning, I never found a stand-alone example to read existing PostGIS tables, so I&#8217;m hoping this fills that void.</p>
+<p>Good luck...
+<a class="reference external" href="http://frankpurcell.com/code">http://frankpurcell.com</a></p>
+</div>
+<div class="section" id="id3">
+<h2><a class="reference external" href="neighborhood.py">neighborhood.py</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#</span>
+<span class="c"># Example GeoAlchemy query from existing PostGIS table </span>
+<span class="c"># Frank Purcell</span>
+<span class="c"># June 1, 2010</span>
+<span class="c">#</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span>     <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">geoalchemy</span>     <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">func</span>
+
+<span class="c">#</span>
+<span class="c"># DB connection</span>
+<span class="c"># NOTE: set echo=True to see all that *Alchemy is doing to talk to the database</span>
+<span class="c">#</span>
+<span class="n">database</span> <span class="o">=</span> <span class="s">&quot;postgresql://postgres@localhost:5432/postgres&quot;</span>
+<span class="n">engine</span>   <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">()</span>
+
+
+<span class="c">#</span>
+<span class="c"># define relational object, mapping to db table</span>
+<span class="c"># tell sqlalchemy about the special type of the PostGIS geom column</span>
+<span class="c"># other columns will be mapped automatically from the table&#39;s metadata</span>
+<span class="c">#</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="s">&#39;neighborhood&#39;</span><span class="p">,</span> 
+               <span class="n">metadata</span><span class="p">,</span>
+               <span class="n">GeometryExtensionColumn</span><span class="p">(</span><span class="s">&#39;the_geom&#39;</span><span class="p">,</span> <span class="n">Geometry</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span>
+               <span class="n">autoload</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+               <span class="n">autoload_with</span><span class="o">=</span><span class="n">engine</span>
+         <span class="p">)</span>
+<span class="c"># NOTE that the Did not recognize type &#39;geometry&#39; of column &#39;the_geom&#39; warning is happening here...not sure why</span>
+<span class="c"># sys.exit(1)</span>
+
+
+<span class="c">#</span>
+<span class="c"># open a bound session on the database</span>
+<span class="c">#</span>
+<span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+
+
+<span class="c">#</span>
+<span class="c"># query for the largest polygon by doing an order_by on the st_area(geom), </span>
+<span class="c"># then choosing the first row from the result set</span>
+<span class="c">#</span>
+<span class="c"># NOTE: The order_by content is simply a string that gets appended to geoalchemy&#39;s sql query being </span>
+<span class="c">#       sent to the db.  The contents of the order_by (as shown here), is any valid sql applicable to the  </span>
+<span class="c">#       given (postgis) db.  The negative to this approach would be lack of portability (eg: sqllite).</span>
+<span class="c">#</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="c">#row = q..first()</span>
+<span class="c">#row = q.order_by(desc(&quot;name&quot;)).first()</span>
+<span class="c">#row = q.order_by(&quot;st_area(the_geom)&quot;).first()         # smallest polygon</span>
+<span class="n">row</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">desc</span><span class="p">(</span><span class="s">&quot;st_area(the_geom)&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>   <span class="c"># largest polygon</span>
+
+
+<span class="c">#</span>
+<span class="c"># print out information about our table</span>
+<span class="c">#</span>
+<span class="k">print</span> <span class="s">&quot;DB Columns&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">.</span><span class="n">columns</span>
+<span class="k">print</span> <span class="s">&quot;GeoColumn Type&quot;</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">functions</span><span class="o">.</span><span class="n">geometry_type</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">the_geom</span><span class="p">))</span>
+
+
+<span class="c">#</span>
+<span class="c"># Call an ST_ function on our geom column, and print out information about the first row in the table  </span>
+<span class="c">#</span>
+<span class="n">center</span> <span class="o">=</span> <span class="n">DBSpatialElement</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">the_geom</span><span class="o">.</span><span class="n">centroid</span><span class="p">())</span>
+<span class="n">area</span>   <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">DBSpatialElement</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">the_geom</span><span class="o">.</span><span class="n">area</span><span class="p">()))</span>
+<span class="n">lon</span>    <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">center</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">lat</span>    <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">center</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">row</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;centriod is at:&quot;</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="s">&quot;,&quot;</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="s">&quot;and this big&quot;</span><span class="p">,</span><span class="n">area</span> 
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="index.html">Frank Purcell v documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Frank Purcell.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0b2.
+    </div>
+  </body>
+</html>
